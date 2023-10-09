@@ -1,0 +1,330 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="jayaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ENQUIRY_INFO">
+          <Key>
+            <PropertyRef Name="LeadsId" />
+          </Key>
+          <Property Name="LeadsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TEI_PHONENO" Type="varchar" MaxLength="60" />
+          <Property Name="TEI_ID" Type="varchar" MaxLength="5" />
+          <Property Name="TEI_CUSTOMER_FIRSTNAME" Type="varchar" MaxLength="100" />
+          <Property Name="TEI_CUSTOMER_LASTNAME" Type="varchar" MaxLength="100" />
+          <Property Name="TEI_CALL_DATE" Type="smalldatetime" />
+          <Property Name="TEI_CALL_TIME" Type="varchar" MaxLength="10" />
+          <Property Name="TEI_ENQUIRYFOR" Type="varchar" MaxLength="15" />
+          <Property Name="ENQ_VENTURE" Type="varchar" MaxLength="25" />
+          <Property Name="ENQ_SOURCE" Type="varchar" MaxLength="50" />
+          <Property Name="OTHER_ENQ_SOURCE" Type="varchar" MaxLength="50" />
+          <Property Name="MEDIA_ENQ_SOURCE" Type="varchar" MaxLength="50" />
+          <Property Name="MEDIA_SUB_ENQ_SOURCE" Type="varchar" MaxLength="50" />
+          <Property Name="CampaignCode" Type="int" />
+          <Property Name="WALKIN_TYPE" Type="varchar" MaxLength="10" />
+          <Property Name="FirstSourceOfEnquiry" Type="varchar" MaxLength="50" />
+          <Property Name="OTHER_STATUS" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="MEDIAMASTER">
+          <Key>
+            <PropertyRef Name="MediaId" />
+          </Key>
+          <Property Name="MediaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ParentMedia" Type="varchar" MaxLength="50" />
+          <Property Name="MediaName" Type="varchar" MaxLength="50" />
+          <Property Name="MediaType" Type="varchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="TELE_DESIGNATION_MASTER">
+          <Key>
+            <PropertyRef Name="DesignationId" />
+          </Key>
+          <Property Name="DesignationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Designation" Type="varchar" MaxLength="50" />
+          <Property Name="Prefix" Type="varchar" MaxLength="5" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TELE_ENQUIRY_INFO">
+          <Key>
+            <PropertyRef Name="LeadsId" />
+          </Key>
+          <Property Name="LeadsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TEI_PHONENO" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="TEI_ID" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="TEI_CUSTOMER_FIRSTNAME" Type="varchar" MaxLength="100" />
+          <Property Name="TEI_CUSTOMER_LASTNAME" Type="varchar" MaxLength="100" />
+          <Property Name="TEI_CALLBACK_DATE" Type="smalldatetime" />
+          <Property Name="TEI_CALLBACK_TIME" Type="varchar" MaxLength="8" />
+          <Property Name="TEI_CALLER_REMARKS" Type="nvarchar(max)" />
+          <Property Name="TEI_POSSIBILITY" Type="varchar" MaxLength="20" />
+          <Property Name="TEI_STAGE" Type="varchar" MaxLength="10" />
+          <Property Name="TEI_EXECUTIVE_CODE" Type="varchar" MaxLength="30" />
+          <Property Name="TEI_OPTION" Type="varchar" MaxLength="30" />
+          <Property Name="TEI_CALL_DATE" Type="smalldatetime" />
+          <Property Name="TEI_CALL_TIME" Type="varchar" MaxLength="10" />
+          <Property Name="TEI_ENQUIRYFOR" Type="varchar" MaxLength="15" />
+          <Property Name="TEI_REVIEWEDBY" Type="varchar" MaxLength="30" />
+          <Property Name="TEI_ASSIGN_DATE" Type="smalldatetime" />
+          <Property Name="TEI_ASSING_TIME" Type="varchar" MaxLength="12" />
+          <Property Name="TEI_ASSIGN_ID" Type="varchar" MaxLength="5" />
+          <Property Name="TEI_ENQUIRY_TYPE" Type="varchar" MaxLength="10" />
+          <Property Name="TEI_SNO" Type="numeric" Precision="5" Scale="0" />
+          <Property Name="TEI_CALLER_TYPE" Type="varchar" MaxLength="5" />
+          <Property Name="TEI_CALL_STATE" Type="varchar" MaxLength="1" />
+          <Property Name="TEI_CUSTOMER_COMMENTS" Type="nvarchar(max)" />
+          <Property Name="TEI_CALL_LOGS" Type="varchar(max)" />
+          <Property Name="SourceCd" Type="varchar" MaxLength="50" />
+          <Property Name="TEI_VENTUIRE" Type="varchar" MaxLength="15" />
+          <Property Name="ENQ_VENTURE" Type="varchar" MaxLength="50" />
+          <Property Name="ENQ_SOURCE" Type="varchar" MaxLength="50" />
+          <Property Name="OTHER_ENQ_SOURCE" Type="varchar" MaxLength="50" />
+          <Property Name="MEDIA_ENQ_SOURCE" Type="varchar" MaxLength="50" />
+          <Property Name="MEDIA_SUB_ENQ_SOURCE" Type="varchar" MaxLength="50" />
+          <Property Name="CampaignCode" Type="int" />
+          <Property Name="REF_VENTURE" Type="varchar" MaxLength="15" />
+          <Property Name="REF_CODE" Type="int" />
+          <Property Name="WALKIN_TYPE" Type="varchar" MaxLength="10" />
+          <Property Name="TEI_PURCHASE_DATE" Type="datetime" />
+          <Property Name="PRICE" Type="numeric" Precision="13" Scale="2" />
+          <Property Name="SourceCategory" Type="nvarchar(max)" />
+          <Property Name="PurchaseId" Type="int" />
+          <Property Name="Purchase_BatchId" Type="int" />
+          <Property Name="FirstSourceOfEnquiry" Type="varchar" MaxLength="50" />
+          <Property Name="OTHER_STATUS" Type="varchar(max)" />
+          <Property Name="CUSTLEAD_ID" Type="int" />
+          <Property Name="CUSTLEAD_CTRL" Type="int" />
+        </EntityType>
+        <EntityContainer Name="jayaModelStoreContainer">
+          <EntitySet Name="ENQUIRY_INFO" EntityType="Self.ENQUIRY_INFO" Schema="Master" store:Type="Tables" />
+          <EntitySet Name="MEDIAMASTER" EntityType="Self.MEDIAMASTER" Schema="Master" store:Type="Tables" />
+          <EntitySet Name="TELE_DESIGNATION_MASTER" EntityType="Self.TELE_DESIGNATION_MASTER" Schema="Master" store:Type="Tables" />
+          <EntitySet Name="TELE_ENQUIRY_INFO" EntityType="Self.TELE_ENQUIRY_INFO" Schema="Master" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="jayaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ENQUIRY_INFO">
+          <Key>
+            <PropertyRef Name="LeadsId" />
+          </Key>
+          <Property Name="LeadsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TEI_PHONENO" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="TEI_ID" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="TEI_CUSTOMER_FIRSTNAME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="TEI_CUSTOMER_LASTNAME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="TEI_CALL_DATE" Type="DateTime" Precision="0" />
+          <Property Name="TEI_CALL_TIME" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="TEI_ENQUIRYFOR" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="ENQ_VENTURE" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="ENQ_SOURCE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OTHER_ENQ_SOURCE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MEDIA_ENQ_SOURCE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MEDIA_SUB_ENQ_SOURCE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CampaignCode" Type="Int32" />
+          <Property Name="WALKIN_TYPE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="FirstSourceOfEnquiry" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OTHER_STATUS" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="jayaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ENQUIRY_INFO" EntityType="Self.ENQUIRY_INFO" />
+          <EntitySet Name="TELE_DESIGNATION_MASTER" EntityType="jayaModel.TELE_DESIGNATION_MASTER" />
+          <EntitySet Name="MEDIAMASTERs" EntityType="jayaModel.MEDIAMASTER" />
+          <EntitySet Name="TELE_ENQUIRY_INFO" EntityType="jayaModel.TELE_ENQUIRY_INFO" />
+        </EntityContainer>
+        <EntityType Name="TELE_DESIGNATION_MASTER">
+          <Key>
+            <PropertyRef Name="DesignationId" />
+          </Key>
+          <Property Name="DesignationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Designation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Prefix" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MEDIAMASTER">
+          <Key>
+            <PropertyRef Name="MediaId" />
+          </Key>
+          <Property Name="MediaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ParentMedia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MediaName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MediaType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="TELE_ENQUIRY_INFO">
+          <Key>
+            <PropertyRef Name="LeadsId" />
+          </Key>
+          <Property Name="LeadsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TEI_PHONENO" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="TEI_ID" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="TEI_CUSTOMER_FIRSTNAME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="TEI_CUSTOMER_LASTNAME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="TEI_CALLBACK_DATE" Type="DateTime" Precision="0" />
+          <Property Name="TEI_CALLBACK_TIME" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="TEI_CALLER_REMARKS" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TEI_POSSIBILITY" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="TEI_STAGE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="TEI_EXECUTIVE_CODE" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="TEI_OPTION" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="TEI_CALL_DATE" Type="DateTime" Precision="0" />
+          <Property Name="TEI_CALL_TIME" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="TEI_ENQUIRYFOR" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="TEI_REVIEWEDBY" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="TEI_ASSIGN_DATE" Type="DateTime" Precision="0" />
+          <Property Name="TEI_ASSING_TIME" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="TEI_ASSIGN_ID" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="TEI_ENQUIRY_TYPE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="TEI_SNO" Type="Decimal" Precision="5" Scale="0" />
+          <Property Name="TEI_CALLER_TYPE" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="TEI_CALL_STATE" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="TEI_CUSTOMER_COMMENTS" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TEI_CALL_LOGS" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SourceCd" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TEI_VENTUIRE" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="ENQ_VENTURE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ENQ_SOURCE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OTHER_ENQ_SOURCE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MEDIA_ENQ_SOURCE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MEDIA_SUB_ENQ_SOURCE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CampaignCode" Type="Int32" />
+          <Property Name="REF_VENTURE" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="REF_CODE" Type="Int32" />
+          <Property Name="WALKIN_TYPE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="TEI_PURCHASE_DATE" Type="DateTime" Precision="3" />
+          <Property Name="PRICE" Type="Decimal" Precision="13" Scale="2" />
+          <Property Name="SourceCategory" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PurchaseId" Type="Int32" />
+          <Property Name="Purchase_BatchId" Type="Int32" />
+          <Property Name="FirstSourceOfEnquiry" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OTHER_STATUS" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CUSTLEAD_ID" Type="Int32" />
+          <Property Name="CUSTLEAD_CTRL" Type="Int32" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="jayaModelStoreContainer" CdmEntityContainer="jayaEntities">
+          <EntitySetMapping Name="ENQUIRY_INFO">
+            <EntityTypeMapping TypeName="jayaModel.ENQUIRY_INFO">
+              <MappingFragment StoreEntitySet="ENQUIRY_INFO">
+                <ScalarProperty Name="LeadsId" ColumnName="LeadsId" />
+                <ScalarProperty Name="TEI_PHONENO" ColumnName="TEI_PHONENO" />
+                <ScalarProperty Name="TEI_ID" ColumnName="TEI_ID" />
+                <ScalarProperty Name="TEI_CUSTOMER_FIRSTNAME" ColumnName="TEI_CUSTOMER_FIRSTNAME" />
+                <ScalarProperty Name="TEI_CUSTOMER_LASTNAME" ColumnName="TEI_CUSTOMER_LASTNAME" />
+                <ScalarProperty Name="TEI_CALL_DATE" ColumnName="TEI_CALL_DATE" />
+                <ScalarProperty Name="TEI_CALL_TIME" ColumnName="TEI_CALL_TIME" />
+                <ScalarProperty Name="TEI_ENQUIRYFOR" ColumnName="TEI_ENQUIRYFOR" />
+                <ScalarProperty Name="ENQ_VENTURE" ColumnName="ENQ_VENTURE" />
+                <ScalarProperty Name="ENQ_SOURCE" ColumnName="ENQ_SOURCE" />
+                <ScalarProperty Name="OTHER_ENQ_SOURCE" ColumnName="OTHER_ENQ_SOURCE" />
+                <ScalarProperty Name="MEDIA_ENQ_SOURCE" ColumnName="MEDIA_ENQ_SOURCE" />
+                <ScalarProperty Name="MEDIA_SUB_ENQ_SOURCE" ColumnName="MEDIA_SUB_ENQ_SOURCE" />
+                <ScalarProperty Name="CampaignCode" ColumnName="CampaignCode" />
+                <ScalarProperty Name="WALKIN_TYPE" ColumnName="WALKIN_TYPE" />
+                <ScalarProperty Name="FirstSourceOfEnquiry" ColumnName="FirstSourceOfEnquiry" />
+                <ScalarProperty Name="OTHER_STATUS" ColumnName="OTHER_STATUS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TELE_DESIGNATION_MASTER">
+            <EntityTypeMapping TypeName="jayaModel.TELE_DESIGNATION_MASTER">
+              <MappingFragment StoreEntitySet="TELE_DESIGNATION_MASTER">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Prefix" ColumnName="Prefix" />
+                <ScalarProperty Name="Designation" ColumnName="Designation" />
+                <ScalarProperty Name="DesignationId" ColumnName="DesignationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MEDIAMASTERs">
+            <EntityTypeMapping TypeName="jayaModel.MEDIAMASTER">
+              <MappingFragment StoreEntitySet="MEDIAMASTER">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="MediaType" ColumnName="MediaType" />
+                <ScalarProperty Name="MediaName" ColumnName="MediaName" />
+                <ScalarProperty Name="ParentMedia" ColumnName="ParentMedia" />
+                <ScalarProperty Name="MediaId" ColumnName="MediaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TELE_ENQUIRY_INFO">
+            <EntityTypeMapping TypeName="jayaModel.TELE_ENQUIRY_INFO">
+              <MappingFragment StoreEntitySet="TELE_ENQUIRY_INFO">
+                <ScalarProperty Name="CUSTLEAD_CTRL" ColumnName="CUSTLEAD_CTRL" />
+                <ScalarProperty Name="CUSTLEAD_ID" ColumnName="CUSTLEAD_ID" />
+                <ScalarProperty Name="OTHER_STATUS" ColumnName="OTHER_STATUS" />
+                <ScalarProperty Name="FirstSourceOfEnquiry" ColumnName="FirstSourceOfEnquiry" />
+                <ScalarProperty Name="Purchase_BatchId" ColumnName="Purchase_BatchId" />
+                <ScalarProperty Name="PurchaseId" ColumnName="PurchaseId" />
+                <ScalarProperty Name="SourceCategory" ColumnName="SourceCategory" />
+                <ScalarProperty Name="PRICE" ColumnName="PRICE" />
+                <ScalarProperty Name="TEI_PURCHASE_DATE" ColumnName="TEI_PURCHASE_DATE" />
+                <ScalarProperty Name="WALKIN_TYPE" ColumnName="WALKIN_TYPE" />
+                <ScalarProperty Name="REF_CODE" ColumnName="REF_CODE" />
+                <ScalarProperty Name="REF_VENTURE" ColumnName="REF_VENTURE" />
+                <ScalarProperty Name="CampaignCode" ColumnName="CampaignCode" />
+                <ScalarProperty Name="MEDIA_SUB_ENQ_SOURCE" ColumnName="MEDIA_SUB_ENQ_SOURCE" />
+                <ScalarProperty Name="MEDIA_ENQ_SOURCE" ColumnName="MEDIA_ENQ_SOURCE" />
+                <ScalarProperty Name="OTHER_ENQ_SOURCE" ColumnName="OTHER_ENQ_SOURCE" />
+                <ScalarProperty Name="ENQ_SOURCE" ColumnName="ENQ_SOURCE" />
+                <ScalarProperty Name="ENQ_VENTURE" ColumnName="ENQ_VENTURE" />
+                <ScalarProperty Name="TEI_VENTUIRE" ColumnName="TEI_VENTUIRE" />
+                <ScalarProperty Name="SourceCd" ColumnName="SourceCd" />
+                <ScalarProperty Name="TEI_CALL_LOGS" ColumnName="TEI_CALL_LOGS" />
+                <ScalarProperty Name="TEI_CUSTOMER_COMMENTS" ColumnName="TEI_CUSTOMER_COMMENTS" />
+                <ScalarProperty Name="TEI_CALL_STATE" ColumnName="TEI_CALL_STATE" />
+                <ScalarProperty Name="TEI_CALLER_TYPE" ColumnName="TEI_CALLER_TYPE" />
+                <ScalarProperty Name="TEI_SNO" ColumnName="TEI_SNO" />
+                <ScalarProperty Name="TEI_ENQUIRY_TYPE" ColumnName="TEI_ENQUIRY_TYPE" />
+                <ScalarProperty Name="TEI_ASSIGN_ID" ColumnName="TEI_ASSIGN_ID" />
+                <ScalarProperty Name="TEI_ASSING_TIME" ColumnName="TEI_ASSING_TIME" />
+                <ScalarProperty Name="TEI_ASSIGN_DATE" ColumnName="TEI_ASSIGN_DATE" />
+                <ScalarProperty Name="TEI_REVIEWEDBY" ColumnName="TEI_REVIEWEDBY" />
+                <ScalarProperty Name="TEI_ENQUIRYFOR" ColumnName="TEI_ENQUIRYFOR" />
+                <ScalarProperty Name="TEI_CALL_TIME" ColumnName="TEI_CALL_TIME" />
+                <ScalarProperty Name="TEI_CALL_DATE" ColumnName="TEI_CALL_DATE" />
+                <ScalarProperty Name="TEI_OPTION" ColumnName="TEI_OPTION" />
+                <ScalarProperty Name="TEI_EXECUTIVE_CODE" ColumnName="TEI_EXECUTIVE_CODE" />
+                <ScalarProperty Name="TEI_STAGE" ColumnName="TEI_STAGE" />
+                <ScalarProperty Name="TEI_POSSIBILITY" ColumnName="TEI_POSSIBILITY" />
+                <ScalarProperty Name="TEI_CALLER_REMARKS" ColumnName="TEI_CALLER_REMARKS" />
+                <ScalarProperty Name="TEI_CALLBACK_TIME" ColumnName="TEI_CALLBACK_TIME" />
+                <ScalarProperty Name="TEI_CALLBACK_DATE" ColumnName="TEI_CALLBACK_DATE" />
+                <ScalarProperty Name="TEI_CUSTOMER_LASTNAME" ColumnName="TEI_CUSTOMER_LASTNAME" />
+                <ScalarProperty Name="TEI_CUSTOMER_FIRSTNAME" ColumnName="TEI_CUSTOMER_FIRSTNAME" />
+                <ScalarProperty Name="TEI_ID" ColumnName="TEI_ID" />
+                <ScalarProperty Name="TEI_PHONENO" ColumnName="TEI_PHONENO" />
+                <ScalarProperty Name="LeadsId" ColumnName="LeadsId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

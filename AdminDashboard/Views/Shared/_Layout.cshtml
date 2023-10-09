@@ -1,0 +1,240 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <link href="~/StyleSheet1.css" rel="stylesheet" />
+    
+
+</head>
+<body>
+    <div class="sidebar close">
+        <div class="home-content">
+            <div class="icon-link">
+                <img src="~/images/logo.jpg" alt="logo" style="display:none" id="companylogo">
+                <img src="~/images/MIL logo 1.jpg" alt="logo" class="hidden" id="smalllogo">
+
+            </div>
+        </div>
+        <div class="logo-details">
+            <i class='fa fa-home'></i>
+            <span class="logo_name">Dashboard</span>
+        </div>
+        <ul class="nav-links">
+            <li>
+                <a href="#">
+                    <i class="fa fa-user"></i>
+                    <span class="link_name">All Leads</span>
+                </a>
+
+            </li>
+            <li>
+                <div class="icon-link">
+                    <a href="~/Views/Home/AssignCalls.cshtml">
+                        <i class='fa fa-pie-chart'></i>
+                        <span class="link_name">Lead Analysis</span>
+                        <i class=" fa fa-caret-down fa-rotate-270"></i>
+                    </a>
+                </div>
+                <ul class="sub-menu">
+                    <li><a class="link_name" href="#">Lead Stage Analysis</a></li>
+                    <li><a href="#">Lead Location Analysis</a></li>
+                    <li><a href="#">Sale Closed Analysis</a></li>
+                    <li><a href="#">Project Enquiries</a></li>
+                </ul>
+            </li>
+            <li>
+                <div class="icon-link">
+                    <a href="#">
+                        <i class='fa fa-question-circle'></i>
+                        <span class="link_name">Enquiry</span>
+                    </a>
+                </div>
+
+            </li>
+            <li>
+                <div class="icon-link">
+                    <a href="../Home/AssignCalls.cshtml">
+                        <i class="fa fa-phone-square"> </i>
+                        <span class="link_name">Assign Calls</span>
+
+                    </a>
+                </div>
+            </li>
+            <li>
+                <div class="icon-link">
+                    <a href="#">
+                        <i class='fa fa-bell-o'></i>
+                        <span class="link_name">Set Remainder</span>
+                    </a>
+                </div>
+            </li>
+            <li>
+                <a href="#">
+                    <i class='fa fa-bar-chart'></i>
+                    <span class="link_name">Reports</span>
+                    <i class=" fa fa-caret-down fa-rotate-270"></i>
+                </a>
+                @*<i class="fa-regular fa fa-chevron-up fa-rotate-90"></i>*@
+                <ul class="sub-menu">
+                    <li><a class="link_name" href="#">Daily Reports</a></li>
+                    <li><a href="#">Follow Up Call Report</a></li>
+                    <li><a href="#">Pending Call Report</a></li>
+                    <li><a href="#">Periodical Call Report</a></li>
+                    <li><a href="#">Direct Calls</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">
+                    <i class='fa fa-maxcdn'></i>
+                    <span class="link_name">Telex Masters</span>
+                    <span class="dropdown-menu"></span>
+
+                </a>
+
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="#">Chart</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">
+                    <i class='fa fa-users'></i>
+                    <span class="link_name">User Management</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="#">Utilities</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">
+                    <i class='fa fa-search-plus'></i>
+                   
+                    <span class="link_name">Customer Search</span>
+                </a>
+
+            </li>
+        </ul>
+    </div>
+    <section class="home-section">
+
+        <div class="row">
+            <div class="col-md-7">
+                <i class="fa fa-bars" style="margin-left:10px"></i>
+            </div>
+            <div class="col-md-3">
+                @*<div class="input-group" id="rightitems">
+                    <input type="text" class="form-control" placeholder="Username" name="usrname">
+                    <span class="input-group-text"><i class="fa fa-search"></i></span>
+                    <i class="fa fa-comment-o" style="padding-left:10px;padding-top:10px"></i>
+                    <span class="badge" style="background-color: blue;
+    border-radius: 24px;
+    height: 13px;
+
+    padding-top: 2px;
+    margin-top: 7px;
+    margin-left: -3px;">3</span>
+                    <i class="fa fa-bell-o" style="padding-left:10px;padding-top:10px"></i>
+                    <span class="badge" style="background-color: blue;
+    border-radius: 24px;
+    height: 13px;
+
+    padding-top: 2px;
+    margin-top: 3px;
+    margin-left: -7px;">3</span>*@
+                    <i class="fa fa-user-circle-o pull-right" style="padding-left:10px;padding-top:10px"></i>
+                </div>
+            <div class="col-md-2">
+                   <label id="Lbluser" name="labeluser " style="padding-left:10px;padding-top:10px;color:blue" ></label>
+                </div>
+
+
+            </div>
+
+       @* </div>*@
+        @*<div class="container body-content">*@
+            @RenderBody()
+           @* </div>*@
+    </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @*<div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    </ul>
+                </div>
+            </div>
+        </div>*@
+    
+    @*<div class="container body-content">
+        @RenderBody()
+        @*<hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            </footer>*@
+    @*</div>*@
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script type="text/javascript">
+        let itemList = document.getElementById("companylogo");
+        let SmallLogo = document.getElementById("smalllogo");
+        let arrow = document.querySelectorAll(".arrow");
+        for (var i = 0; i < arrow.length; i++) {
+            arrow[i].addEventListener("click", (e) => {
+                let arrowParent = e.target.parentElement.parentElement;//selecting main parent of arrow
+                arrowParent.classList.toggle("showMenu");
+
+
+                //companylogo.classList.toggle("visible");
+            });
+        }
+
+        let sidebar = document.querySelector(".sidebar");
+        let sidebarBtn = document.querySelector(".fa-bars");
+        //let sidebarBtn1 = document.querySelector(".totalpage");
+        sidebarBtn.addEventListener("click", () => {
+            sidebar.classList.toggle("close");
+
+
+            if (sidebar.classList.contains("close")) {
+                // Sidebar is closed
+                SmallLogo.style.display = "block";
+                itemList.style.display = "none";
+            } else {
+                // Sidebar is expanded
+                SmallLogo.style.display = "none";
+                itemList.style.display = "block";
+            }
+
+        });
+    </script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

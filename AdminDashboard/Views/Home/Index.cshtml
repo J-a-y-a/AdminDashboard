@@ -1,0 +1,1476 @@
+﻿@model AdminDashboard.TELE_ENQUIRY_INFO
+@{
+    ViewBag.Title = "Home Page";
+}
+<head>
+    <link href="~/StyleSheet1.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/DataTables/css/jquery.dataTables.css" rel="stylesheet" />
+    <link href="~/Content/DataTables/css/dataTables.bootstrap.css" rel="stylesheet" />
+    <style>
+        /*#phone {
+            height: 32px;
+          /*background: :blue;*/
+        /*background: blue;
+            width: 29px;
+            text-align: center;
+            padding-top: 6px;
+        }*/
+        /**/ /**/
+        /*.card {
+            margin-top: 15px;
+            padding-top: 10px;
+        }*/
+        .modal-header {
+            background-color: cornflowerblue;
+            height: 41px;
+            color: white;
+        }
+
+        .modal-footer {
+            height: 51px;
+        }
+
+        .fade:not(.show) {
+            opacity: 1 !important
+        }
+
+        .form-control, .form-select {
+            line-height: 1.0;
+            /*--bs-border-radius: aliceblue;*/
+            /*height: 33px;
+            font-size: 12px;*/
+            height: 30px;
+            font-size: 14px;
+        }
+
+        .row {
+            margin-top: 7px;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+        }
+
+        .card {
+            margin-top: 10px;
+        }
+
+        table.dataTable tbody th, table.dataTable tbody td {
+            padding: 3px 17px;
+        }
+
+        .btn-info {
+            --bs-btn-color: #fff;
+            --bs-btn-bg: #0dcaf0;
+            --bs-btn-border-color: #0dcaf0;
+            --bs-btn-hover-color: #fff;
+        }
+        .modal {
+            --bs-modal-width: 546px;
+        }
+
+        element.style {
+            width: 40px;
+        }
+
+        .form-control-sm {
+            min-height: calc(0.5em + 0.25rem + calc(var(--bs-border-width) * 0));
+            padding: 0.25rem 0.25rem;
+            font-size: 0.875rem;
+        }
+            /* border-radius: var(--bs-border-radius-sm); */
+    
+            table .dataTable thead > tr > th {
+            width: 80px;
+        }
+        .dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody > table > tbody > tr > td {
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+
+
+    <div class="content" aria-hidden="true">
+        <div class="card ">
+            <div class="card-header bg-white">
+                <div class="row">
+                    <div class="col-md-1">
+                        <i class="fa fa-phone-square text-white" id="phone" aria-hidden="true"> </i>
+                    </div>
+                    <div class="col-md-9">
+                        <h4>Call Assign Master</h4>
+                    </div>
+
+                    <div class="col-md-2">
+                        <a href="#"><span class="active">Dashboard</span></a>
+                        <span class="Assign">/ Assign Calls</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card">
+            <div class="container-fluid">
+                <form method="post" id="Assignform" name="registration">
+                    <div class="row">
+                        <div class="col-md-1">
+                            <label><span class="text-danger">*</span>EnquiryType</label>
+                        </div>
+                        <div class="col-md-2">
+                            @Html.DropDownList("TEI_ENQUIRY_TYPE", new List<SelectListItem>
+                            {
+                                new SelectListItem{ Text="Phone", Value = "Phone" },
+                                new SelectListItem{ Text="E-Mail", Value = "E-Mail" },
+                            }, htmlAttributes: new { @class = "form-select", @required = "required" })
+                            @Html.ValidationMessageFor(model => model.TEI_ENQUIRY_TYPE, "", new { @class = "text-danger" })
+                        </div>
+                        @*<div class="col-md-1">
+                <label>Login User</label>
+            </div>*@
+                        <div class="col-md-2">
+                            @Html.DropDownList("TEI_ASSIGN_ID", new List<SelectListItem>
+                            {
+                                new SelectListItem{ Text="EXECUTIVE 1", Value = "C01" },
+                                new SelectListItem{ Text="TELECALLER1", Value = "C02" },
+                                new SelectListItem{ Text="Harish", Value = "C03" },
+                                new SelectListItem{ Text="MASTER", Value = "00" },
+                            },htmlAttributes: new { @class = "form-select",@name="Username",@onchange="handleDropdownChange()" })
+                        </div>
+                        <div class="col-md-1">
+                            <label><span class="text-danger">*</span> Call Date</label>
+                        </div>
+                        <div class="col-md-2">
+                            @* <input type="date" id="TEI_CALL_DATE" class="form-control form-control-sm" />*@
+                            @Html.EditorFor(model => model.TEI_CALL_DATE, new { htmlAttributes = new { @class = "form-control form-control-sm", @required = "required", @type = "date", @id = "TEI_CALL_DATE" } })
+                            @Html.ValidationMessageFor(model => model.TEI_CALL_DATE, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-1">
+                            <label>
+                                Assign To &nbsp;
+                                <input type="checkbox" id="Chkassign" onclick="Userdata()" value="1">
+                            </label>
+                        </div>
+                        <div class="col-md-3 assignuser" id="userid" style="display:none;">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label><span class="text-danger">*</span> User</label>
+                                </div>
+                                <div class="col-md-8">
+                                    @Html.DropDownList("TEI_ID", new List<SelectListItem>
+                                    { new SelectListItem { Text = "Telecaller1", Value = "C02"},
+                                   new SelectListItem { Text = "Executive1", Value = "C01"},
+       new SelectListItem { Text = "Harish", Value = "C03"},
+       new SelectListItem { Text = "Master", Value = "00"},
+                                    }, htmlAttributes: new { @class = "form-select", @onchange = "handleDropdownChange()" })
+
+                                    @*@Html.DropDownList("TCM_DESIGNATION", new SelectList(ViewBag.Designations, "DesignationId", "Designation"), "--Select--", new { @class = "form-control form-control-sm" })*@
+                                    @*@Html.DropDownList("RoleId", new SelectList(ViewBag.Roles, "Tele_RolePrefix", "Tele_RoleName"), "--Select--", new { @class = "form-control form-control-sm" })*@
+                                </div>
+                                @*<div class="col-md-1">
+                        <label id="UserCode" style="color:blue;"> </label>
+                    </div>*@
+                                @*<div class="form-group col-md-9">
+                        @Html.DropDownList("TEI_ID", new List<SelectListItem>
+                        {
+                           new SelectListItem{ Text="--Please Select--", Value = "" }
+                        }, htmlAttributes: new { @class = "form-control", @required = "required" })
+                    </div>*@
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-sm-1">
+                            <label>Data ReSource</label>
+                        </div>
+                        <div class="col-sm-3">
+                            @Html.TextBoxFor(model => model.SourceCd, null, new { @class = "form-control ", @placeholder = "Data ReSource", @autocomplete = "off" })
+                        </div>
+                        <div class="col-sm-1">
+                            <label> Purchase Date</label>
+                        </div>
+                        <div class="col-sm-2">
+                            <input type="date" class="form-control form-control-sm" id="TEI_PURCHASE_DATE" />
+                            @*@Html.EditorFor(model => model.TEI_PURCHASE_DATE, new { htmlAttributes = new { @class = "form-control date" } })*@
+                        </div>
+                        <div class="col-sm-1">
+                            <label> Price</label>
+                        </div>
+                        <div class="col-sm-2">
+                            @Html.TextBoxFor(model => model.PRICE, null, new { @class = "form-control form-control-sm", @placeholder = "Price", @autocomplete = "off" })
+                        </div>
+
+                    </div>
+
+                    <div style="text-align:center;border-top:1px solid rgba(0,0,0,.1);border-bottom:1px solid rgba(0,0,0,.1);margin-top: 8px;">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="RadioAddData" value="1" checked>
+                            <label class="form-check-label" for="RadioAddData">ADD DATA</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="RadioImport" value="2">
+                            <label class="form-check-label" for="RadioImport">EXCEL IMPORT</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="MediaImport" value="3">
+                            <label class="form-check-label" for="MediaImport">MEDIA ENQUIRIES</label>
+                        </div>
+                    </div>
+                    <div id="AddDatatable" style="display:block">
+                        <div class="row ">
+                            <div class="col-sm-5">
+
+                                <label style="color: firebrick; font-size: 18px;"> UnAssigned Calls List<input type="checkbox" id="checkUnAssign"></label>
+                            </div>
+                            <div class="col-sm-3">
+                    @Html.DropDownList("DropSourceFilter", new List<SelectListItem>
+                        {
+                            new SelectListItem{ Text="Choose Any Source", Value = "" }
+                        }, htmlAttributes: new { @class = "form-select" })
+                </div>
+                            <div class="col-sm-4" style="text-align:right;">
+                                <button type="button" id="Btnassign" class="btn btn-info btn-sm" title="Assign" onclick="Assign();">
+                                    @*  <button type="button" id="Btnassign" class="btn btn-info btn-sm" title="Assign" data-toggle="modal" data-target="#Assignmodal" onclick="Assign();">*@
+                                    <i class="fa fa-plus"></i><span> Assign Calls&nbsp;&nbsp;</span>
+                                </button>
+                                <button type="button" id="addRow" class="btn btn-primary btn-sm" title="Add" onclick="NewRow()">
+                                    <i class="fa fa-plus"></i> <span> Add New&nbsp;&nbsp;</span>
+                                </button>
+                                <button type="button" class="btn btn-success btn-sm " title="Save">
+                                    <i class="fa fa-save"></i> <span class="btnsave" onclick="SaveData()"> Save Info </span>
+                                </button>
+                            </div>
+                        </div>
+                        <div id="unAssignedcallsdiv" style="display:none;">
+                            <table id="unAssignedcalls" class="row-border display" style="width:100%;">
+                                <thead style=" background: linear-gradient(to right, #004e92, #0a2283);color: white;">
+                                    <tr>
+                                        <th width="5%">SNo</th>
+                                        <th>Phone</th>
+                                        <th>Customer FirstName</th>
+                                        <th>Customer LastName</th>
+                                        <th>Source</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+
+                        <table id="TblAssignCalls" class="table-responsive" style="width:100%;font-size:13px">
+                            <thead style=" background: linear-gradient(to right, #004e92, #0a2283);color: white;">
+                                <tr>
+                                    <th width="5%">SNo</th>
+                                    <th>Phone <span>*</span></th>
+                                    <th>
+                                        Customer
+                                        FirstName
+                                    </th>
+                                    <th>Customer LastName</th>
+                                    <th>Source</th>
+                                    <th>Actions <i class="fa fa-plus-square" title="Add" id="addnewrow" onclick="NewRow()"></i></th>
+                                    @*<th><input name="select_all" value="1" id="ToselectAll" type="checkbox" /></th>*@
+                                </tr>
+                            </thead>
+
+                        </table>
+                        @*<hr />*@
+                        <div class="col-md-12" style="text-align:right;">
+                            <button type="button" class="btn btn-success btn-sm " title="Save">
+                                <i class="fa fa-save"></i> <span class="btnsave" onclick="SaveData()"> Save Info </span>
+                            </button>
+                        </div>
+                    </div>
+                    @*<hr />*@
+                    <div id="mediaEnquiriesdiv" style="display:none;">
+                        <table id="tblmediaenquiries" class="table-responsive" style="width:100%;">
+                            <thead style=" background: linear-gradient(to right, #004e92, #0a2283);color: white;">
+                                <tr>
+                                    <th width="5%">SNo</th>
+                                    <th>Phone</th>
+                                    <th>Customer Name</th>
+                                    <th>Media Source</th>
+                                    <th>Project</th>
+                                    <th>Customer Query</th>
+                                    <th>Interested In</th>
+                                    <th>Received On</th>
+                                    <th>AssignedUser</th>
+                                    <th>Customer Status</th>
+                                    
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    @*<hr />*@
+
+
+                </form>
+        </div>
+        </div>
+
+        <div class="modal fade" id="ImportModal" role="dialog" tabindex="-1" aria-labelledby="classInfo" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="classModalLabel">Excel Import</h4>
+                        <button type="button" class="btn-close" id="Btnclose" data-dismiss="modal" aria-label="close" style="float:right;color:red">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h6 class="text-danger text-center"> File Columns Should Be Like Phone,First Name,Last Name,Source **</h6><br />
+                        <input type="file" class="form-control" id="file" accept=".xls, .xlsx" />
+                        <Label id="FileName" style="color: orangered;"></Label>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" onclick="UploadFile()" style="padding: 2px 8px;float:right;"><i class="fa fa-upload">&nbsp;Upload</i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="Assignmodal" role="dialog" tabindex="-1" aria-labelledby="classInfo" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title"> Assign Calls To Users <span id="headoption"></span></h4>
+                        <button type="button" class="btn-close" id="Closemodal" data-dismiss="modal" aria-label="close" style="float:right;color:red">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label style="font-size: 16px;"> Assign Calls &#64;</label>
+                            </div>
+                            <div class="col-md-1">
+                                <input type="number"  min="1" max="50" id="AssignCount" style="width:40px;height:20px" />
+                            </div>
+                            <div class="col-md-1">
+                                <label style="font-size: 15px;"> Each</label>
+                            </div>
+                            <div class="col-md-4">
+                                <label id="lbltotalcount" style="font-size: 15px;"></label>
+                            </div>
+                        </div>
+                        <table id="ReAssigncalls" class="table-responsive" style="width:100%;font-size:13px">
+                            <thead style="  background: linear-gradient(to right, #004e92, #0a2283); color: white;width:100%;height:20px">
+                                <tr>
+                                    <th>SNo</th>
+                                    <th style="width:100%"> UserId <span>*</span></th>
+                                    <th>UserName</th>
+                                    @*<th></th>*@
+                                    <th><input name="select_all" value="1" id="ChkAllUsers" type="checkbox" /></th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" id="Assignuser" style="padding: 2px 8px;float:right;" onclick="SaveAssign()"><i class="fa fa-plus">&nbsp;Assign</i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    @*</div>*@
+
+    @section scripts{
+        <script src="~/Scripts/jquery-3.3.1.js"></script>
+        <script src="~/Scripts/DataTables/jquery.dataTables.js"></script>
+        <script src="~/Scripts/DataTables/dataTables.bootstrap.js"></script>
+        <script src="~/Scripts/moment.js"></script>
+        <script type="text/javascript">
+            //var ReAssignTable;
+            var unasgndataTable, mediadataTable, oTable;
+            var UData = new Array();
+            $(document).ready(function () {
+                BindDRPTEI_ID();
+                TbLabel();
+                BindSourceDropDown();
+               // handleDropdownChange();
+                oTable = $('#TblAssignCalls').DataTable({
+                    "ajax": {
+                        //"url": "/Home/AssignCalls",
+                          "url":'@Url.Action("GetCallsFromApi", "WebAPIConsume")',
+                        "data": function (data) {
+                            data.Enquirytype = $("#TEI_ENQUIRY_TYPE option:selected").val();
+                            data.Calldate = $("#TEI_CALL_DATE").val();
+                            data.TEIid = $("#TEI_ID  option:selected").val();
+                            data.User = $("#TEI_ASSIGN_ID  option:selected").val();
+                            //data.TEIAssignid = $("#TEI_ASSIGN_ID  option:selected").val();
+                            data.CheckAssign = $("#Chkassign").prop("checked");
+                            data.Flag = "";
+                            data.AssignType = "Assign";
+                            data.Sourcnamefltr = $("#DropSourceFilter option:selected").val();
+                        },
+                        "type": "GET",
+                        "datatype": "json"
+
+                    },
+                    "columns": [
+                        { "data": "SNo", "autoWidth": true },
+                        { "data": "TEI_PHONENO", "autoWidth": true },
+                        { "data": "TEI_CUSTOMER_FIRSTNAME", "autoWidth": true },
+                        { "data": "TEI_CUSTOMER_LASTNAME", "autoWidth": true },
+                        { "data": "FirstSourceOfEnquiry", "autoWidth": true },
+                        {
+                            "data": null, render: function (row) {
+                                //return "<a onclick=EditData(" + row.LeadsId + ")><i class='fa fa-eye'></i></a><a onclick=Edit(" + row.LeadsId + ")> <i style='color:green' class='fa fa-check editclr'></i></a><a  onclick = DeleteData(" + row.LeadsId + ")><i style='color: Red;' class='fa fa-trash deleteclr'></a>";
+
+                                return "<a  onclick = DeleteData(" + row.LeadsId + ")><i style='color: Red;' class='fa fa-trash deleteclr'></a>";
+                            }
+                        },
+                    ],
+                    "columnDefs": [
+                        {
+                            "targets": 0, "render": function (data, type, full, meta) {
+                                return meta.row + 1;
+                            }
+                        },
+                        //{
+                        //    "targets": 6,
+                        //    //'searchable': false,
+                        //    'orderable': false,
+                        //    //'className': 'dt-center',
+                        //    "render": function (data, type, full, meta) {
+                        //        return '<input type="checkbox" name="id[]" value="'
+                        //            + $('<div/>').text(data).html() + '">';
+                        //    }
+                        //},
+                    ],
+
+                    "language": {
+                        "emptyTable": "Data Not Found, Please Choose Other Option.."
+                    }
+                });
+
+          
+                    //To ReAssign DataTable
+                    ReAssignTable = $('#ReAssigncalls').DataTable({
+                        "ajax": {
+                            "url": "/Home/Telecaller",
+                            "type": "GET",
+                            "datatype": "json"
+
+                        },
+                        "columns": [
+                            { "data": "SNo", "autoWidth": true },
+                            { "data": "TCM_ID", "autoWidth": true },
+                            { "data": "TCM_NAME", "autoWidth": true },
+                        ],
+                        "filter": false, //disable filter (search box)
+                        "searching": false, //Disable searching abilities in DataTables
+                        "lengthChange": false, //Disable Record number per page
+                        "info": false,
+                        "columnDefs": [
+                            {
+                                "targets": 0, "render": function (data, type, full, meta) {
+                                    return meta.row + 1;
+                                }
+                            },
+                            {
+                                "targets": 3,
+                                'searchable': false,
+                                'orderable': false,
+                                //'className': 'dt-center',
+                                "render": function (data, type, full, meta) {
+                                    return '<input type="checkbox" name="selectall" value="'
+                                        + $('<div/>').text(data).html() + '">';
+                                }
+                            },
+                        ],
+                    });
+        
+
+
+
+
+
+
+
+
+
+
+
+                $('#ToselectAll').on('click', function () {
+                    // Check/uncheck all checkboxes in the table
+                    var rows = oTable.rows({ 'search': 'applied' }).nodes();
+                    $('input[type="checkbox"]', rows).prop('checked', this.checked);
+                });
+                //REAssigncalls table checkbox checking
+                $("#ChkSelectAll").change(function () {
+                    // Get the state of the "Select All" checkbox
+                    var isChecked = $(this).prop("checked");
+
+                    // Set the state of all tbody checkboxes based on the state of "Select All"
+                    $("#ReAssigncalls tbody input[type='checkbox']").prop("checked", isChecked);
+                });
+
+                $("#TEI_CALL_DATE").blur(function (e) {
+                    //debugger;
+                    var CurrentDate = moment(new Date()).format("YYYY-MM-DD");
+                    var enteredDate = $("#TEI_CALL_DATE").val();
+                    if (!moment(enteredDate, "YYYY-MM-DD", true).isValid()) {
+                        alert("Please enter a valid date ");
+                        $("#TEI_CALL_DATE").val(GetDate());
+                        $("#TEI_CALL_DATE").focus();
+                        e.preventDefault();
+                        return false;
+                    }
+                    else if (CurrentDate > enteredDate) {
+                        debugger
+                        alert("Call Date should not be less than today's date.");
+                        $("#TEI_CALL_DATE").val(GetDate());
+                        $("#TEI_CALL_DATE").focus();
+                        e.preventDefault();
+                        return false;
+                    }
+                    return true;
+                });
+                $("#TEI_ID").change(function () {
+                    debugger;
+                    if (oTable != undefined) {
+                        oTable.ajax.reload();
+                    }
+                    if (unasgndataTable != undefined) {
+                        unasgndataTable.ajax.reload();
+                    }
+                });
+                //$("#TEI_ASSIGN_ID").change(function () {
+                //    debugger;
+                //    if (oTable != undefined) {
+                //        oTable.ajax.reload();
+                //    }
+                //    if (unasgndataTable != undefined) {
+                //        unasgndataTable.ajax.reload();
+                //    }
+                //});
+
+                $("#TEI_ASSIGN_ID").change(function () {
+                    debugger;
+                    var checkAssign = $("#Chkassign").prop("checked");
+                    if (checkAssign == false) {
+                        if (checkUnAssign == true) {
+                            unasgndataTable.ajax.reload();
+                        }
+                        else {
+                            oTable.ajax.reload();
+                        }
+                }
+                });
+
+                $("#TEI_CUSTOMER_FIRSTNAME").keypress(function (e) {
+                    //debugger;
+                    var length = $(this).val().length;
+                    if (length > 20) {
+                        return false;
+                    }
+                });
+                $("#Btnclose").click(function () {
+                    $("#ImportModal").modal('hide');
+                    clearTextBox();
+                    oTable.ajax.reload();
+                });
+
+               //To bind TEI_ID name To Label
+                function TbLabel() {
+                    var InitialText = $('select[id=TEI_ASSIGN_ID] option:selected').text();
+                    $('#Lbluser').text(InitialText);
+                }
+                $('select[id=TEI_ASSIGN_ID]').change(
+                    function () {
+                        debugger;
+                        var newText = $('option:selected', this).text();
+                        $('#Lbluser').text(newText);
+                    }
+                );
+                $("#Chkassign, #TEI_ID").on("change", function () {
+                    debugger;
+                    if (oTable != undefined) {
+                        oTable.ajax.reload();
+                    }
+                    if (unasgndataTable != undefined) {
+                        unasgndataTable.ajax.reload();
+                    }
+                    //oTable.ajax.reload();
+                    //unasgndataTable.ajax.reload();
+                    //var checkUnAssign = $("#checkUnAssign").prop("checked");
+                    //    if (checkUnAssign == true) {
+                    //        unasgndataTable.ajax.reload();
+                    //    }
+                    //    else {
+                    //        oTable.ajax.reload();
+                    //    }
+                   // }
+
+                });
+                //$("#Btnassign").click(function () {
+                   
+                //});
+
+                //Assigning calls to user
+                    @*$("#Assignuser").click(function () {
+                        var SelectedRows = []; var userId =null;
+                        debugger;
+                        var selectAllCheckbox = $('#ToselectAll');
+                        var isSelectAllChecked = selectAllCheckbox.prop('checked');
+
+                        // If "Select All" is checked, add all rows' data to the array
+                        if (isSelectAllChecked) {
+                            $('#TblAssignCalls tbody tr').each(function () {
+                                var rowData = oTable.row($(this)).data();
+                                SelectedRows.push(rowData);
+                            });
+                        } else {
+                            // Loop through the checkboxes in the table and identify selected rows
+                            $('#TblAssignCalls input[type="checkbox"]:checked').each(function () {
+                                var rowData = oTable.row($(this).closest("tr")).data();
+                                SelectedRows.push(rowData);
+                            });
+                        }
+                        userId = $('#ReAssigncalls tbody tr input[type="checkbox"]:checked:first').closest('tr').find("td:eq(1)").text();
+
+                        if (SelectedRows !="") {
+                            $.ajax({
+                                type: "POST",
+                                url: "@Url.Action("ReassignedData", "Home")",
+                                data: { SelectedRows: SelectedRows, userId: userId },
+                                success: function (data) {
+                                    alert("Calls Assigned  Succesfully");
+                                    oTable.ajax.reload();
+                                    $("#Assignmodal").css("display", "none");
+                                    ReAssignTable.ajax.reload();
+                                },
+                                error: function (xhr, status, error) {
+                                    // Handle error, if needed
+                                }
+                            });
+                        }
+                        else {
+                            alert("Please select the calls");
+                            oTable.ajax.reload();
+                            $("#Assignmodal").css("display", "none");
+                            ReAssignTable.ajax.reload();
+                        }
+                });*@
+
+
+
+            $("#TblAssignCalls").on("change", "#TEI_PHONENO", function (e) {
+                //debugger
+                var $tr = $(this).closest('tr');
+                var Isvalid = false;
+                var phone = $tr.find("#TEI_PHONENO").val();
+                var EnquiryType = $("#TEI_ENQUIRY_TYPE").val();
+
+                if (EnquiryType == "Phone") {
+                    var phoneno = /^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/;
+                    var mobileno = /^((\\+91-?)|0)?[0-9]{10}$/;
+                    if (phoneno.test(phone) || mobileno.test(phone)) {
+                        Isvalid = true;
+                    }
+                    if (phone == null || phone == "") {
+                        alert("please Enter")
+                    }
+
+                }
+                else if (EnquiryType == "E-Mail") {
+                    var emailReg = /^([\w-\.]+@@([\w-]+\.)+[\w-]{2,4})?$/ ;
+                    if (emailReg.test(phone)) {
+                        Isvalid = true;
+                    }
+                }
+                if (Isvalid) {
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("IsphoneExists", "Home")/',
+                        data: '{phoneNumber: "' + phone + '" }',
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (response) {
+                            if (response == false) {
+                                alert("" + EnquiryType +" Already Exist...");
+                                //$tr.find("#TEI_PHONENO").val('');
+                                $tr.find("#TEI_PHONENO").focus();
+                                e.preventDefault();
+                                return false;
+                            }
+                        }
+                    });
+                    return true;
+                }
+                else {
+                    alert("Invalid " + EnquiryType +"..");
+                    //$tr.find("#TEI_PHONENO").val('');
+                    $tr.find("#TEI_PHONENO").focus();
+                    //e.preventDefault();
+                    return false;
+                }
+                });
+                $("#TEI_ASSIGN_ID").change(function () {
+                    BindDRPTEI_ID();
+                });
+                $("#TEI_ID").change(function () {
+                    BindDRPTEI_ID();
+                });
+                $("#checkUnAssign").click(function (e) {
+                    $("#unAssignedcallsdiv").toggle();
+                    if (this.checked == true) {
+                        BindUnAssignedCalls();
+                    }
+                    else {
+                        unasgndataTable.clear().draw();
+                    }
+                });
+
+                $("#MediaImport").click(function () {
+                debugger
+                $("#mediaEnquiriesdiv").css("display", "block");
+                $("#AddDatatable").css("display", "none");
+                if (this.checked == true) {
+                
+                    BindMediaEnquiries();
+                }
+                else {
+                    mediadataTable.clear().draw();
+                }
+                });
+                $("#Assignmodal").on('click', "#ChkAllUsers", function (e) {
+                    debugger;
+
+                    //if ($('#TCMDESIGNATION').val() != "") {
+                    if ($('#ReAssigncalls tbody').find("input[type='checkbox']").length > 0) {
+                        if (this.checked == true) {
+                          //  $('#ReAssigncalls tbody').find("input[type='checkbox']").attr("checked", "checked");
+                            $('#ReAssigncalls tbody').find("input[type='checkbox']:visible").prop("checked", true);
+                        }
+                        else {
+                            $('#ReAssigncalls tbody').find("input[type='checkbox']").removeAttr("checked");
+                            $('#ReAssigncalls tbody').find("input[type='checkbox']").checked = false;
+                        }
+                        $('#ReAssigncalls tbody').find("input[type='checkbox']").change();
+                    }
+                });
+
+
+                $("#Assignmodal").on('change', "input[type='checkbox']", function (e) {
+                    debugger
+                    var crowData = $('#ReAssigncalls').DataTable().row($(this).closest('tr')).data();
+                    //var rowData = oTable.row($(this)).data();
+                    if (crowData != "" && crowData != undefined && crowData != null) {
+                        var obj = {
+                            //"AssignCount": $("#AssignCount").val(),
+                            "TCM_ID": crowData["TCM_ID"],
+                            "TCM_CUSTOMERNAME": crowData["TCM_NAME"]
+                        }
+                        if (this.checked == true) {
+                            var index = UData.findIndex(a => a.TCM_ID === obj.TCM_ID);
+                            if (index == -1) {
+                                UData.push(obj);
+                            }
+                        }
+                        else {
+                            UData.splice(UData.findIndex(a => a.TCM_ID === obj.TCM_ID), 1);
+                        }
+                    }
+                });
+
+                $("#DropSourceFilter").change(function (e) {
+                    if ($("#checkUnAssign").prop("checked")) {
+                        if (unasgndataTable != undefined) {
+                            unasgndataTable.ajax.reload();
+                        }
+                    }
+                    else {
+                        if (oTable != undefined) {
+                            oTable.ajax.reload();
+                        }
+                    }
+                });
+
+
+
+
+
+            });
+            // To bind CurrentDate
+            var date = new Date();
+            var day = date.getDate();
+            var month = date.getMonth() + 1;
+            var year = date.getFullYear();
+            if (month < 10) month = "0" + month;
+            if (day < 10) day = "0" + day;
+            var today = year + "-" + month + "-" + day;
+            document.getElementById("TEI_CALL_DATE").value = today;
+            document.getElementById("TEI_PURCHASE_DATE").value = today;
+
+            // To Filter  ReAssignTable rows according to TEI_ASSIGN_ID selected value
+            function handleDropdownChange() {
+                debugger;
+                var selectedValue = $("#TEI_ASSIGN_ID").val();
+                var selectedTEI_ID = $("#TEI_ID").val();
+                var checkedvalue = $("#Chkassign");
+
+                var propchecked = checkedvalue.prop('checked');
+                if (propchecked) {
+                    ReAssignTable.rows().every(function () {
+                        var rowData = this.data();
+                        if (rowData.TCM_ID === selectedTEI_ID) {
+                            this.nodes().to$().hide();
+                        } else {
+                            this.nodes().to$().show();
+                        }
+                    });
+                }
+                else {
+                    ReAssignTable.rows().every(function () {
+                        var rowData = this.data();
+                        if (rowData.TCM_ID === selectedValue) {
+                            this.nodes().to$().hide();
+                        } else {
+                            this.nodes().to$().show();
+                        }
+                    });
+                }
+            }
+           
+            
+
+
+
+            function BindDRPTEI_ID() {
+                var selectedValue = $("#TEI_ASSIGN_ID").val();
+                $("#TEI_ID option").prop("disabled", false);
+
+                // Disable the selected item in TEI_ID dropdown
+                if (selectedValue) {
+                    $("#TEI_ID option[value='" + selectedValue + "']").prop("disabled", true);
+                }
+            }
+
+           //To Display UserId when Checkbox is checked
+            function Userdata() {
+
+                // Get the checkbox
+                var checkBox = document.getElementById("Chkassign");
+                // Get the output text
+                var text = document.getElementById("userid");
+
+                // If the checkbox is checked, display the output text
+                if (checkBox.checked == true) {
+                    text.style.display = "block";
+                    CheckedAssign = true;
+                } else {
+                    text.style.display = "none";
+                }
+            }
+
+            //To Add Textbox rows
+        function NewRow() {
+       // debugger;
+            var sno = $('#TblAssignCalls tr:last td:first').html();
+        if (sno == "Data Not Found, Please Choose Other Option..") {
+        sno = 1;
+            $('#TblAssignCalls .dataTables_empty').attr("hidden", true);
+        }
+        else {
+        sno = parseInt(sno) + 1;
+        }
+
+            var tblContainer = $("#TblAssignCalls tbody");
+            var row = tblContainer[0].insertRow(-1);
+
+        var cell = row.insertCell(0);
+        $(cell).append(sno);
+
+        var phoneno = '@Html.TextBoxFor(model => model.TEI_PHONENO, null, new { @class = "form-control form-control-sm phone", @placeholder = "Phone / E-Mail", @required = "required", @autocomplete = "off" })';
+        var cell = row.insertCell(1);
+        $(cell).append(phoneno);
+
+        var custfname = '@Html.TextBoxFor(model => model.TEI_CUSTOMER_FIRSTNAME, null, new { @class = "form-control form-control-sm", @placeholder = "First Name", @autocomplete = "off", @maxlength = "20" })';
+        var cell = row.insertCell(2);
+        $(cell).append(custfname);
+
+        var custlname = '@Html.TextBoxFor(model => model.TEI_CUSTOMER_LASTNAME, null, new { @class = "form-control form-control-sm", @placeholder = "Last Name", @autocomplete = "off", @maxlength = "20" })';
+        var cell = row.insertCell(3);
+        $(cell).append(custlname);
+
+        var source = '@Html.TextBoxFor(model => model.FirstSourceOfEnquiry, null, new { @class = "form-control form-control-sm", @placeholder = "Source", @autocomplete = "off", @maxlength = "20" })';
+        var cell = row.insertCell(4);
+        $(cell).append(source);
+
+            var btnremove = $('<button type="button" id="btnremove" class="btn btn-sm btn-outline-danger" onclick="Deleterow(this)" style="padding: 0px 5px;"><i class="fa fa-times"></i></button>');
+        var cell = row.insertCell(5);
+        $(cell).append(btnremove);
+        //$('#assigncalls tr:last td:eq(1)').find('input:first').focus();
+            var index = $(row).index();
+            console.log(index);
+            $('#TblAssignCalls tbody tr:eq(' + index + ')').find('input:first').focus();
+            //$("#tblAssignCalls").append(index);
+            }
+
+
+
+
+
+
+            function DeleteData(LeadsId) {
+                debugger;
+            if (confirm("Are you sure you want to delete ...?")) {
+                Delete(LeadsId);
+            }
+            else {
+                return false;
+                }
+                alert("Deleted Successfully");
+                oTable.ajax.reload();
+            }
+            function Delete(LeadsId) {
+                debugger;
+                //var url= '@Url.Content("~/")' + "Home/Delete";
+                var url = '@Url.Content("~/")' + "WebAPIConsume/DeleteCall";
+                $.post(url, { LeadsId: LeadsId }, function (data) {
+                    if (data == "Deleted") {
+                        alert("data");
+                        oTable.ajax.reload();
+                        //window.location.href = "/Employees/Index";
+                    }
+                });
+            }
+
+            //To Delete empty rows
+            function Deleterow(button) {
+                debugger;
+                $(button).closest('tr').remove();
+            }
+
+
+          //Validation to allow AlphaNumericonly
+            function Fnamevalidation(Fname) {
+                debugger;
+                var letters = /^[a-zA-Z0-9]+$/;
+                if (Fname.match(letters) || Fname == "") {
+                    return true;
+                }
+                else {
+                    alert(Fname +'must have alphanumerics  only');
+                   Fname.focus();
+                    return false;
+                }
+            }
+
+            //While adding multiple records to restrict duplicate phonenumbers
+            function ValidatePhone(obj) {
+                debugger;
+                event = event || window.event || event.srcElement;
+                var retn_val = true;
+                var PhnArr = [];
+                for (var i = 0; i < obj.length; i++) {
+                    if (obj[i] != "") {
+                        var tableObj = []
+                        tableObj.push(obj[i].split(',')[0]);
+                        PhnArr.push(tableObj.join(','));
+                    }
+                }
+                let hasDuplicate = PhnArr.some((val, k) => PhnArr.indexOf(val) !== k);
+                if (hasDuplicate) {
+                    retn_val = false;
+                }
+                if (!retn_val) {
+                    event.preventDefault();
+                }
+                return retn_val;
+            }
+
+            //To save the records
+            function SaveData() {
+                debugger;
+                var firstNameValue = $("#TEI_CUSTOMER_FIRSTNAME").val();
+
+                var lastNameValue = $("#TEI_CUSTOMER_LASTNAME").val();
+           
+                var sourceValue = $("#FirstSourceOfEnquiry").val();
+                var checkAssign = $("#Chkassign").prop("checked");
+                var otArr = [];
+               
+                $('#TblAssignCalls tbody tr').each(function (e) {
+                    $Cells = $(this).children();
+                    var itArr = [];
+                    $Cells.find('input[type="text"]').each(function () {
+                        itArr.push($(this).val());
+                    });
+                    if (itArr != "") {
+                        itArr.push($("#TEI_ENQUIRY_TYPE").val());
+                        itArr.push($("#TEI_CALL_DATE").val());
+                        itArr.push($("#SourceCd").val());
+                        itArr.push($("#TEI_PURCHASE_DATE").val());
+                        itArr.push($("#PRICE").val());
+                        itArr.push($("#TEI_ASSIGN_ID").val());
+                      
+
+
+                        if ($("#Chkassign").prop("checked")) {
+                            debugger;
+                            //itArr.push($("#TCM_DESIGNATION").val());
+                            itArr.push($("#TEI_ID").val());
+                        }
+                        else {
+                            itArr.push($("#TEI_ASSIGN_ID").val());
+                        }
+                        otArr.push(itArr.join(','));
+                    }
+                });
+                if (Fnamevalidation(firstNameValue)) {
+                    if (Fnamevalidation(lastNameValue)) {
+                        //if (Fnamevalidation(sourceValue)) {
+                            var validphone = ValidatePhone(otArr);
+                            if (validphone) {
+                                $.ajax({
+                                    type: "POST",
+                                    // url: "/Home/SaveData",
+                                    url: '@Url.Action("SaveLeads", "WebAPIConsume")',
+                                    //url: "/WebAPIConsume/AssignCalls",
+                                   // data: JSON.stringify(otArr),
+                                    data: JSON.stringify({ "model": otArr, "CheckAssign": checkAssign }),
+                                    //data: { otArr}
+                                    contentType: "application/json",
+                                    success: function (response) {
+                                        if (response) {
+                                            alert(response.message);
+                                            oTable.ajax.reload();
+                                            ClearControls();
+                                        }
+                                    },
+                                    error: function (error) {
+                                        // Handle errors if any
+                                    }
+                                });
+                            } else {
+                                alert("Phone/Email does not allow duplicates")
+                                //$("#TEI_PHONENO").focus();
+                                }
+                            }
+                        //}
+                    }
+                }
+
+
+            $("#Btnassign").click(function () {
+                handleDropdownChange();
+               // $("#Assignmodal").css("display", "block");
+            });
+
+            $("#Closemodal").click(function () {
+                $("#Assignmodal").css("display", "none");
+                ReAssignTable.ajax.reload();
+                //$("#ChkSelectAll").val("");
+                $('#ChkSelectAll').prop('checked', false);
+            });
+            $("#RadioImport").click(function () {
+                $("#ImportModal").css("display", "block");
+                $("#AddDatatable").css("display", "none");
+                $("#mediaEnquiriesdiv").css("display", "none");
+            });
+            $("#RadioAddData").click(function () {
+                $("#mediaEnquiriesdiv").css("display", "none");
+                $("#AddDatatable").css("display", "block");
+            });
+            $("#Btnclose").click(function () {
+                $("#ImportModal").css("display", "none");
+                $("#AddDatatable").css("display", "block");
+                $("#RadioAddData").click();
+            });
+
+            //$("#MediaImport").click(function () {
+            //    debugger
+            //    //$(".btnsdiv").css("display", "none");
+            //    $("#AddDatatable").css("display", "none");
+            //    //$("#assigncalls_wrapper").css("display", "none");
+            //    $("#mediaEnquiriesdiv").css("display", "block");
+            //    //$("#mediaenquiriesdiv").toggle();
+            //    if (this.checked == true) {
+            //        $("#mediaEnquiriesdiv").css("display", "block");
+            //        BindMediaEnquiries();
+            //    }
+            //    else {
+            //        mediadataTable.clear().draw();
+            //    }
+            //});
+
+
+            //To upload Excelrecords
+         function UploadFile() {
+            debugger
+            if ($('#file')[0].files.length >0) {
+                //$(".divprogress").css("display", "block");
+                $.ajax({
+                  //  url: '@Url.Action("SaveExcel", "Home")',
+                    url: '@Url.Action("UploadFile", "WebAPIConsume")',
+                    type: "POST",
+                    data: function () {
+                        var data = new FormData();
+                        data.append("file", $('#file').get(0).files[0]);
+                        data.append("EnqType", $("#TEI_ENQUIRY_TYPE").val());
+                        data.append("CallDate", $("#TEI_CALL_DATE").val());
+                        data.append("ReSource", $("#SourceCd").val());
+                        data.append("PurchaseDate", $("#TEI_PURCHASE_DATE").val());
+                        data.append("Price", $("#PRICE").val());
+                        data.append("Assignid", $("#TEI_ASSIGN_ID").val());
+                        data.append("CheckAssign", $("#Chkassign").prop("checked"));
+
+                        if ($("#Chkassign").prop("checked"))
+                        {
+                            //data.append("UserType", $("#TCM_DESIGNATION").val());
+                            data.append("User", $("#TEI_ID").val());
+                        }
+                        else {
+                            data.append("User", $("#TEI_ASSIGN_ID").val())
+                        }
+                        return data;
+                    }(),
+                    contentType: false,
+                    processData: false,
+                    success: function (data) {
+                        if (data.success == true) {
+                            alert(data.message);
+                            $("#ImportModal").css("display", "none");
+                            //ClearScreen();
+                            $("#RadioAddData").click();
+                            oTable.ajax.reload();
+                            $("#AddDatatable").css("display", "block");
+                            $("#file").val("");
+                            ClearControls();
+                        }
+                        else if (data.success == false) {
+                            alert(data.message);
+                            $("#ImportModal").css("display", "none");
+                            $("#AddDatatable").css("display", "block");
+                            $("#RadioAddData").click();
+                            $("#file").val("");
+                            ClearControls();
+                            //$("#FileName").text("");
+
+
+                        }
+                    }
+                });
+            }
+            else {
+                $("#FileName").text("Please Choose File..");
+            }
+            }
+
+            function ClearControls() {
+                $("#TEI_ENQUIRY_TYPE").val("Phone");
+                //$("#TEI_CALL_DATE").val(GetDate());
+                //$("#TEI_CALL_DATE").val(moment(new Date()).format("YYYY-MM-DD"));
+                $("#SourceCd").val("");
+                $("#TEI_PURCHASE_DATE").val("");
+                $("#PRICE").val("");
+            }
+
+            function BindUnAssignedCalls() {
+                  debugger
+             var Id = "A";
+            unasgndataTable = $('#unAssignedcalls').DataTable({
+                "ajax": {
+                   // "url": "@Url.Action("AssignCalls", "Home")",
+                    "url":'@Url.Action("GetCallsFromApi", "WebAPIConsume")',
+                    data: function (data) {
+                        data.TEIAssignid = $("#TEI_ASSIGN_ID option:selected").val();
+                        data.Enquirytype = $("#TEI_ENQUIRY_TYPE option:selected").val();
+                        data.Calldate = $("#TEI_CALL_DATE").val();
+                        data.TEIid = ($("#Chkassign").prop("checked")) ? $("#TEI_ID").val() : Id;
+                        data.Flag = "UA";
+                        data.AssignType = "UA";
+                        data.CheckAssign = $("#Chkassign").prop("checked");
+                        data.Sourcnamefltr = $("#DropSourceFilter option:selected").val();
+                    },
+                    "type": "GET",
+                    "datatype": "json",
+                },
+                "destroy": true,
+                "searchHighlight": "true",
+                "responsive": "true",
+                "scrollY": "300px",
+                "scrollCollapse": true,
+                "columns": [
+                    { "data": "SNo" },
+                    { "data": "TEI_PHONENO" },
+                    { "data": "TEI_CUSTOMER_FIRSTNAME" },
+                    { "data": "TEI_CUSTOMER_LASTNAME" },
+                    { "data": "FirstSourceOfEnquiry" },
+                    //{
+                    //    "type": 'date', "data": "TEI_CALL_DATE", "render": function (data) {
+                    //        debugger;
+                    //        //var nowDate = new Date();
+                    //        ////var nowDate = new Date(parseInt(data.substr(6)));
+                    //        //var result = "";
+                    //        //result = nowDate.format("dd/mm/yyyy");
+                    //        //return result;
+                    //    },
+                    //}
+                    {
+                        "data": "TEI_CALL_DATE",
+                        "render": function (data) {
+                            debugger;
+                            if (data != null) {
+                                var ddd = parseInt(data.substr(6, data.length - 7));
+                                //var numn = 1587407400000;
+                                var date = new Date(ddd);
+                                var month = date.getMonth() + 1;
+                                // return (month.toString().length > 1 ? month : "0" + month) + "/" + date.getDate() + "/" + date.getFullYear();
+                                if (date.getDate().toString().length > 1) {
+                                    return date.getDate() + "/" + (month.toString().length > 1 ? month : "0" + month) + "/" + date.getFullYear();
+                                }
+                                else {
+                                    return  "0"+ date.getDate() + "/" + (month.toString().length > 1 ? month : "0" + month) + "/" + date.getFullYear();
+                                }
+                            }
+                        }
+                    }
+                ],
+                "columnDefs": [
+                    {
+                        "targets": 0, "render": function (data, type, full, meta) {
+                            return meta.row + 1;
+                        }
+                    },
+                ],
+                "lengthMenu": [[10, 20, 30], [10, 20, 30]],
+                //"lengthMenu": [[5, 10, 15], [5, 10, 15]],
+                "language": {
+                    "emptyTable": "Data Not Found, Please Choose Other Option.."
+                }
+            });
+            }
+
+
+            function Assign() {
+                debugger;
+                var tableCount = 0;
+                if ($("#checkUnAssign").prop("checked")) {
+                    tableCount = $("#unAssignedcalls").dataTable().fnSettings().aoData.length;
+                }
+                else {
+                    tableCount = $("#TblAssignCalls").dataTable().fnSettings().aoData.length;
+                }
+                if (tableCount > 0) {
+                    UData.length = 0;
+                    $("#AssignCount").val("1");
+                    $("#lbltotalcount").text("Out of " + tableCount);
+                    $('#ChkAllUsers').prop('checked', false);
+                   
+                    //BindAssignUsersTable();
+                    //var option = ($("#chkunassigned").prop("checked")) ? "UnAssigned List" : "To-Days List";
+                    var option = "";
+                    if ($("#checkUnAssign").prop("checked")) {
+                        option = "UnAssigned Calls List";
+                    }
+                    //else if ($("#chkunassgnmenq").prop("checked")) {
+                    //    option = "UnAssigned Media Enquiries";
+                    //}
+                    //else if ($("#MediaImport").prop("checked")) {
+                    //    option = "Media Enquiries List";
+                    //}
+                    else {
+                        option = "To-Days Calls List";
+                    }
+                    $("#headoption").text("(" + option + ")");
+                  //  $("#Assignmodal").modal('show');
+                    $("#Assignmodal").css("display","block");
+                }
+                else {
+                    if ($("#checkUnAssign").prop("checked")) {
+                        alert("UnAssigned Calls Not Exists..");
+                    }
+                    //else if ($("#MediaImport").prop("checked")) {
+                    //    alert("Media Enquiries Not Exists..");
+                    //}
+                    //else if ($("#chkunassgnmenq").prop("checked")) {
+                    //    alert("UnAssigned Media Enquiries Not Exists..");
+                    //}
+                    else {
+                        alert("Calls Not Exists To Assign..");
+                        $("#Assignmodal").css("display", "none");
+                    }
+                    return false;
+                }
+            }
+            function SaveAssign() {
+                debugger 
+                var AssignID = $("#TEI_ASSIGN_ID").val();
+                var checkAssign = $("#Chkassign").prop("checked");
+
+                var SelectedRows = [];
+                //if ($('#TCMDESIGNATION').val() != "") {
+                if (UData != null && UData.length > 0) {
+                    UData.forEach(function (e) {
+                        //e["TCM_DESIGNATION"] = $('#TCMDESIGNATION').val();
+                        e["AssignCount"] = $('#AssignCount').val();
+                        e["TEI_ENQUIRY_TYPE"] = $('#TEI_ENQUIRY_TYPE').val();
+                        e["TEI_ID"] = ($("#Chkassign").prop("checked")) ? $("#TEI_ID").val() : "A";
+                        e["Flag"] = ($("#checkUnAssign").prop("checked")) ? "UA" : "";
+                       e["AssignType"] = ($("#checkUnAssign").prop("checked")) ? "UnAssign" : "Assign";
+                        //e["Flag"] = ($("#chkreassigned").prop("checked")) ? "RA" : "";
+                        e["ReAssignUserId"] = ($("#chkreassigned").prop("checked")) ? $("#ReAssignUser").val() : "";
+                        e["FirstSourceOfEnquiry"] = $("#DropSourceFilter option:selected").val();
+
+                    });
+                    $('#TblAssignCalls tbody tr').each(function () {
+                        var rowData = oTable.row($(this)).data();
+                        SelectedRows.push(rowData);
+                    });
+
+                    $.ajax({
+                        //url: '@Url.Action("AssignCallsWithCount", "Home")',
+                       url: '@Url.Action("ReAssignCalls", "WebAPIConsume")',
+                        dataType: "json",
+                        type: "POST",
+
+                        contentType: 'application/json; charset=utf-8',
+                        data: JSON.stringify({ "objlist": UData, "User": AssignID,"CheckAssign":checkAssign }),
+                        //data: JSON.stringify( UData),
+                        //data: { "objlist":UData, "AssignID": AssignID},
+                        success: function (data) {
+                            if (data.success == true) {
+                                //alert(data.message);
+                                //$("#AssignModal").modal('hide');
+                                $("#Assignmodal").css("display", "none");
+                                $('input[name="selectall"]').prop('checked', false);
+                                if ($("#checkUnAssign").prop("checked")) {
+                                    unasgndataTable.ajax.reload();
+                                    oTable.ajax.reload();
+                                }
+                         
+                                else {
+                                    oTable.ajax.reload();
+                                }
+                                alert(data.message);
+                            }
+                            else {
+                                alert(data.message);
+                                return false;
+                            }
+                        }
+                    });
+                }
+                else {
+                    alert("Please Select Users..");
+                    return false;
+                }
+
+            }
+            function BindMediaEnquiries() {
+                debugger;
+            mediadataTable = $('#tblmediaenquiries').DataTable({
+                "ajax": {
+                   // "url": "@Url.Action("GetMediaEnquiryInfo", "Home")",
+                    "url": "@Url.Action("GetMediaEnquiryFromAPI", "WebAPIConsume")",
+                    data: function (data) {
+                        data.Enquiry_Type = $("#TEI_ENQUIRY_TYPE option:selected").val();
+                        data.Enquiry_Date = $("#TEI_CALL_DATE").val();
+                        data.Flag = "";
+                        data.User = $("#TEI_ASSIGN_ID  option:selected").val();
+                        data.UserID = $("#TEI_ID option:selected").val();
+                        data.CheckAssign = $("#Chkassign").prop("checked");
+                    },
+                    "type": "GET",
+                    "datatype": "json",
+                },
+                "destroy": true,
+                "searchHighlight": "true",
+                "responsive": "true",
+                "scrollY": "300px",
+                "scrollCollapse": true,
+                "columns": [
+                    { "data": "SNo" },
+                    { "data": "M_PhoneNo" },
+                    { "data": "M_FirstName" },
+                    { "data": "M_Source" },
+                    { "data": "Project" },
+                    { "data": "Query" },
+                    { "data": "InterestedIn" },
+                    {
+                        "data": "M_DateTime",
+                        "render": function (data) {
+                            debugger;
+                            if (data != null) {
+                                var ddd = parseInt(data.substr(6, data.length - 7));
+                                //var numn = 1587407400000;
+                                var date = new Date(ddd);
+                                var month = date.getMonth() + 1;
+                                // return (month.toString().length > 1 ? month : "0" + month) + "/" + date.getDate() + "/" + date.getFullYear();
+                                if (date.getDate().toString().length > 1) {
+                                    return date.getDate() + "/" + (month.toString().length > 1 ? month : "0" + month) + "/" + date.getFullYear();
+                                }
+                                else {
+                                    return "0" + date.getDate() + "/" + (month.toString().length > 1 ? month : "0" + month) + "/" + date.getFullYear();
+                                }
+                            }
+                        }
+                    },
+                    { "data": "UserID" },
+                    { "data": "CustomerStatus" },
+                    //{
+                    //    "type": 'date', "data": "M_DateTime", "render": function (data) {
+                    //        debugger;
+                    //        var nowDate = new Date(parseInt(data.substr(6)));
+                    //        var result = "";
+                    //        result = nowDate.format("dd/mm/yyyy HH:mm:ss");
+                    //        return result;
+                    //    },
+                    //},
+                   
+                    //{
+                    //    "data": "UserID", "render": function (data, type, full, meta) {
+                    //        return full.UserName + " (" + data + ")";
+                    //    }
+                    //},
+                    //{ "data": "CustomerStatus" },
+                ],
+                "columnDefs": [
+                    {
+                        "targets": 0, "render": function (data, type, full, meta) {
+                            return meta.row + 1;
+                            width: '3%'
+                        },
+                    },
+                    {
+                        width: '10%',
+                        targets: 1,
+                    },
+                ],
+                //"lengthMenu": [[10, 20, 30, 40, 50, 60, 70, 80, 90, 100], [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]],
+                "language": {
+                    "emptyTable": "Data Not Found, Please Choose Other Option.."
+                }
+            });
+            }
+             function BindSourceDropDown() {
+            $.ajax({
+                url: '@Url.Action("GetSources", "Home")',
+                type: "GET",
+                contentType: "json",
+                success: function (response) {
+                    if (response) {
+                        $("#DropSourceFilter").empty().append('<option value="" selected="selected">Choose Any Source</option>');
+                        $.each(response, function () {
+                            $("#DropSourceFilter").append($("<option></option>").val(this.MediaId).html(this.MediaName));
+                        });
+                    }
+                }
+            });
+        }
+
+        </script>
+    }
+</body>

@@ -1,0 +1,226 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CRM2022Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="MEDIA_ENQUIRY_INFO">
+          <Key>
+            <PropertyRef Name="MId" />
+          </Key>
+          <Property Name="MId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MediaLeadId" Type="int" />
+          <Property Name="M_EnquiryType" Type="varchar" MaxLength="10" />
+          <Property Name="M_FirstName" Type="varchar" MaxLength="100" />
+          <Property Name="M_LastName" Type="varchar" MaxLength="100" />
+          <Property Name="ISD" Type="varchar" MaxLength="5" />
+          <Property Name="M_PhoneNo" Type="varchar" MaxLength="20" />
+          <Property Name="M_EMailId" Type="varchar" MaxLength="100" />
+          <Property Name="M_DateTime" Type="datetime" />
+          <Property Name="Project" Type="varchar" MaxLength="100" />
+          <Property Name="Query" Type="nvarchar(max)" />
+          <Property Name="InterestedIn" Type="nvarchar(max)" />
+          <Property Name="CustomerIdentity" Type="varchar" MaxLength="50" />
+          <Property Name="PhoneVerificationStatus" Type="varchar" MaxLength="50" />
+          <Property Name="EmailVerificationStatus" Type="varchar" MaxLength="50" />
+          <Property Name="M_Source" Type="varchar" MaxLength="50" />
+          <Property Name="UserID" Type="varchar" MaxLength="5" />
+          <Property Name="SequenceNo" Type="int" />
+          <Property Name="CustomerStatus" Type="varchar" MaxLength="50" />
+          <Property Name="Remarks" Type="nvarchar(max)" />
+          <Property Name="MCustLeadId" Type="int" />
+          <Property Name="MCustCtrl" Type="int" />
+          <Property Name="PlanDate" Type="datetime" />
+          <Property Name="Flag" Type="bit" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CRM2022.Master.TELE_CALLER_MASTER' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="TELE_CALLER_MASTER">
+          <Key>
+            <PropertyRef Name="TCM_ID" />
+          </Key>
+          <Property Name="TCM_ID" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="TCM_NAME" Type="varchar" MaxLength="100" />
+          <Property Name="TCM_ADDRESS1" Type="varchar" MaxLength="100" />
+          <Property Name="TCM_ADDRESS2" Type="varchar" MaxLength="100" />
+          <Property Name="TCM_CITY" Type="varchar" MaxLength="50" />
+          <Property Name="TCM_PIN" Type="varchar" MaxLength="6" />
+          <Property Name="TCM_PHONE" Type="varchar" MaxLength="15" />
+          <Property Name="TCM_MOBILE" Type="varchar" MaxLength="15" />
+          <Property Name="TCM_EMAIL" Type="varchar" MaxLength="100" />
+          <Property Name="TCM_TYPE" Type="char" MaxLength="5" />
+          <Property Name="PHOTO" Type="image" />
+          <Property Name="TCM_EMAIL2" Type="varchar" MaxLength="100" />
+          <Property Name="TCM_DESIGNATION" Type="int" />
+          <Property Name="REPORT_DESIGNATION" Type="int" />
+          <Property Name="REPORT_ID" Type="varchar" MaxLength="5" />
+          <Property Name="TEAM_ID" Type="int" />
+          <Property Name="ISACTIVE" Type="bit" />
+        </EntityType>
+        <EntityContainer Name="CRM2022ModelStoreContainer">
+          <EntitySet Name="MEDIA_ENQUIRY_INFO" EntityType="Self.MEDIA_ENQUIRY_INFO" Schema="Master" store:Type="Tables" />
+          <EntitySet Name="TELE_CALLER_MASTER" EntityType="Self.TELE_CALLER_MASTER" store:Type="Tables" store:Schema="Master">
+            <DefiningQuery>SELECT 
+    [TELE_CALLER_MASTER].[TCM_ID] AS [TCM_ID], 
+    [TELE_CALLER_MASTER].[TCM_NAME] AS [TCM_NAME], 
+    [TELE_CALLER_MASTER].[TCM_ADDRESS1] AS [TCM_ADDRESS1], 
+    [TELE_CALLER_MASTER].[TCM_ADDRESS2] AS [TCM_ADDRESS2], 
+    [TELE_CALLER_MASTER].[TCM_CITY] AS [TCM_CITY], 
+    [TELE_CALLER_MASTER].[TCM_PIN] AS [TCM_PIN], 
+    [TELE_CALLER_MASTER].[TCM_PHONE] AS [TCM_PHONE], 
+    [TELE_CALLER_MASTER].[TCM_MOBILE] AS [TCM_MOBILE], 
+    [TELE_CALLER_MASTER].[TCM_EMAIL] AS [TCM_EMAIL], 
+    [TELE_CALLER_MASTER].[TCM_TYPE] AS [TCM_TYPE], 
+    [TELE_CALLER_MASTER].[PHOTO] AS [PHOTO], 
+    [TELE_CALLER_MASTER].[TCM_EMAIL2] AS [TCM_EMAIL2], 
+    [TELE_CALLER_MASTER].[TCM_DESIGNATION] AS [TCM_DESIGNATION], 
+    [TELE_CALLER_MASTER].[REPORT_DESIGNATION] AS [REPORT_DESIGNATION], 
+    [TELE_CALLER_MASTER].[REPORT_ID] AS [REPORT_ID], 
+    [TELE_CALLER_MASTER].[TEAM_ID] AS [TEAM_ID], 
+    [TELE_CALLER_MASTER].[ISACTIVE] AS [ISACTIVE]
+    FROM [Master].[TELE_CALLER_MASTER] AS [TELE_CALLER_MASTER]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CRM2022Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="TELE_CALLER_MASTER">
+          <Key>
+            <PropertyRef Name="TCM_ID" />
+          </Key>
+          <Property Name="TCM_ID" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TCM_NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="TCM_ADDRESS1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="TCM_ADDRESS2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="TCM_CITY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TCM_PIN" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="TCM_PHONE" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="TCM_MOBILE" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="TCM_EMAIL" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="TCM_TYPE" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+          <Property Name="PHOTO" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="TCM_EMAIL2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="TCM_DESIGNATION" Type="Int32" />
+          <Property Name="REPORT_DESIGNATION" Type="Int32" />
+          <Property Name="REPORT_ID" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="TEAM_ID" Type="Int32" />
+          <Property Name="ISACTIVE" Type="Boolean" />
+        </EntityType>
+        <EntityContainer Name="CRM2022Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TELE_CALLER_MASTER" EntityType="Self.TELE_CALLER_MASTER" />
+          <EntitySet Name="MEDIA_ENQUIRY_INFO" EntityType="CRM2022Model.MEDIA_ENQUIRY_INFO" />
+        </EntityContainer>
+        <EntityType Name="MEDIA_ENQUIRY_INFO">
+          <Key>
+            <PropertyRef Name="MId" />
+          </Key>
+          <Property Name="MId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MediaLeadId" Type="Int32" />
+          <Property Name="M_EnquiryType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="M_FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="M_LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ISD" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="M_PhoneNo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="M_EMailId" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="M_DateTime" Type="DateTime" Precision="3" />
+          <Property Name="Project" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Query" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="InterestedIn" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerIdentity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneVerificationStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmailVerificationStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="M_Source" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UserID" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="SequenceNo" Type="Int32" />
+          <Property Name="CustomerStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MCustLeadId" Type="Int32" />
+          <Property Name="MCustCtrl" Type="Int32" />
+          <Property Name="PlanDate" Type="DateTime" Precision="3" />
+          <Property Name="Flag" Type="Boolean" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CRM2022ModelStoreContainer" CdmEntityContainer="CRM2022Entities">
+          <EntitySetMapping Name="TELE_CALLER_MASTER">
+            <EntityTypeMapping TypeName="CRM2022Model.TELE_CALLER_MASTER">
+              <MappingFragment StoreEntitySet="TELE_CALLER_MASTER">
+                <ScalarProperty Name="TCM_ID" ColumnName="TCM_ID" />
+                <ScalarProperty Name="TCM_NAME" ColumnName="TCM_NAME" />
+                <ScalarProperty Name="TCM_ADDRESS1" ColumnName="TCM_ADDRESS1" />
+                <ScalarProperty Name="TCM_ADDRESS2" ColumnName="TCM_ADDRESS2" />
+                <ScalarProperty Name="TCM_CITY" ColumnName="TCM_CITY" />
+                <ScalarProperty Name="TCM_PIN" ColumnName="TCM_PIN" />
+                <ScalarProperty Name="TCM_PHONE" ColumnName="TCM_PHONE" />
+                <ScalarProperty Name="TCM_MOBILE" ColumnName="TCM_MOBILE" />
+                <ScalarProperty Name="TCM_EMAIL" ColumnName="TCM_EMAIL" />
+                <ScalarProperty Name="TCM_TYPE" ColumnName="TCM_TYPE" />
+                <ScalarProperty Name="PHOTO" ColumnName="PHOTO" />
+                <ScalarProperty Name="TCM_EMAIL2" ColumnName="TCM_EMAIL2" />
+                <ScalarProperty Name="TCM_DESIGNATION" ColumnName="TCM_DESIGNATION" />
+                <ScalarProperty Name="REPORT_DESIGNATION" ColumnName="REPORT_DESIGNATION" />
+                <ScalarProperty Name="REPORT_ID" ColumnName="REPORT_ID" />
+                <ScalarProperty Name="TEAM_ID" ColumnName="TEAM_ID" />
+                <ScalarProperty Name="ISACTIVE" ColumnName="ISACTIVE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MEDIA_ENQUIRY_INFO">
+            <EntityTypeMapping TypeName="CRM2022Model.MEDIA_ENQUIRY_INFO">
+              <MappingFragment StoreEntitySet="MEDIA_ENQUIRY_INFO">
+                <ScalarProperty Name="Flag" ColumnName="Flag" />
+                <ScalarProperty Name="PlanDate" ColumnName="PlanDate" />
+                <ScalarProperty Name="MCustCtrl" ColumnName="MCustCtrl" />
+                <ScalarProperty Name="MCustLeadId" ColumnName="MCustLeadId" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="CustomerStatus" ColumnName="CustomerStatus" />
+                <ScalarProperty Name="SequenceNo" ColumnName="SequenceNo" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="M_Source" ColumnName="M_Source" />
+                <ScalarProperty Name="EmailVerificationStatus" ColumnName="EmailVerificationStatus" />
+                <ScalarProperty Name="PhoneVerificationStatus" ColumnName="PhoneVerificationStatus" />
+                <ScalarProperty Name="CustomerIdentity" ColumnName="CustomerIdentity" />
+                <ScalarProperty Name="InterestedIn" ColumnName="InterestedIn" />
+                <ScalarProperty Name="Query" ColumnName="Query" />
+                <ScalarProperty Name="Project" ColumnName="Project" />
+                <ScalarProperty Name="M_DateTime" ColumnName="M_DateTime" />
+                <ScalarProperty Name="M_EMailId" ColumnName="M_EMailId" />
+                <ScalarProperty Name="M_PhoneNo" ColumnName="M_PhoneNo" />
+                <ScalarProperty Name="ISD" ColumnName="ISD" />
+                <ScalarProperty Name="M_LastName" ColumnName="M_LastName" />
+                <ScalarProperty Name="M_FirstName" ColumnName="M_FirstName" />
+                <ScalarProperty Name="M_EnquiryType" ColumnName="M_EnquiryType" />
+                <ScalarProperty Name="MediaLeadId" ColumnName="MediaLeadId" />
+                <ScalarProperty Name="MId" ColumnName="MId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
